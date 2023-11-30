@@ -1,10 +1,10 @@
-import { users } from '@/data/users';
+import { items } from '@/data/items';
 
 function findIndexById(id) {
-  for (let i = 0; i < users.length; i++) {
-    const user = users[i];
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
 
-    if (user.id == id) {
+    if (item.id == id) {
       return i;
     }
   }
@@ -14,15 +14,15 @@ function findIndexById(id) {
 
 async function handler(req, res) {
   const { id } = req.query;
-  console.log(`[${req.method}] [Users]`);
+  console.log(`[${req.method}] [List Items]`);
 
   switch(req.method) {
   case 'GET':
     var index = findIndexById(id);
 
-    var user = users[index];
+    var item = items[index];
 
-    res.status(200).json(user);
+    res.status(200).json(item);
     break;
 
   case 'PUT':
@@ -30,18 +30,18 @@ async function handler(req, res) {
 
     var index = findIndexById(id);
 
-    var user = req.body;
-    user.id = id;
+    var item = req.body;
+    item.id = id;
 
-    users[index] = user;
+    items[index] = item;
 
-    res.status(200).json(user);
+    res.status(200).json(item);
     break;
 
   case 'DELETE':
     var index = findIndexById(id);
 
-    users.splice(index, 1);
+    items.splice(index, 1);
 
     res.status(200).json({ msg: 'Deleted successfully' });
     break;
